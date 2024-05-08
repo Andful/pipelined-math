@@ -1,0 +1,13 @@
+package:
+  name: pipelined-math
+  authors: ["Andrea Nardi <buongiorno19972@gmail.com>"]
+sources:
+  - src/adder.sv
+  - src/delay.sv
+  - src/divider.sv
+  - src/mask.sv
+  - src/multiplier.sv
+  - src/shifter.sv
+  - src/subtractor.sv
+  - src/unshifter.sv
+  - src/util.sv
