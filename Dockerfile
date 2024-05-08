@@ -1,12 +1,22 @@
 FROM alpine
-RUN apk add --no-cache autoconf gperf make gcc g++ bison flex wget \
+RUN apk add --no-cache gcc autoconf gperf make g++ bison flex wget cmake python3 git \
     && wget https://github.com/steveicarus/iverilog/archive/refs/tags/v12_0.tar.gz \
     && tar -xzvf v12_0.tar.gz \
     && rm v12_0.tar.gz \
     && cd ./iverilog-12_0 \
     && autoconf \
     && ./configure \
-    && make install\
+    && make install -j${nproc} \
     && cd / \
     && rm -r ./iverilog-12_0 \
-    && apk del autoconf gperf g++ bison flex wget
+    && wget https://github.com/MikePopoloski/slang/archive/refs/tags/v6.0.tar.gz \
+    && tar -xzvf  v6.0.tar.gz \
+    && rm v6.0.tar.gz \
+    && cd slang-6.0/ \
+    && cmake -B build \
+    && cmake --build build -j${nproc} \
+    && cmake --install build --strip \
+    && cd / \
+    && rm -r slang-6.0/ \
+    && apk del autoconf gperf make g++ bison flex wget cmake python3 git
+
